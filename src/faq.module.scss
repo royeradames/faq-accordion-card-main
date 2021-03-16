@@ -1,5 +1,6 @@
 .faq {
     background-color: white;
+    
     &__title{
 
     }
@@ -10,15 +11,17 @@
 
     }
     &__answer_hidden{
-
+        display: none;
+    }
+    &__answer_showing{
+        display: inline-block;
     }
 }
 
 .illustration{
     &__women{
-
     }
     &__pattern{
-
+        z-index: -1;
     }
-}
+} 
