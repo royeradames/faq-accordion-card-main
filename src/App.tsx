@@ -1,46 +1,129 @@
-import React from 'react';
-import './App.css';
-import faq from "./faq.module.scss"
-import womenOnline from "./images/illustration-woman-online-mobile.svg"
-import mobilePattern from "./images/bg-pattern-mobile.svg"
+import React, { useState } from "react";
+import "./App.css";
+import faq from "./faq.module.scss";
+import womenOnline from "./images/illustration-woman-online-mobile.svg";
+import mobilePattern from "./images/bg-pattern-mobile.svg";
 
 function App() {
-  return (
-    <div className={faq.faq}>
-      <div className={`${faq.faq__illustration}  ${faq.illustration}`}>
-        <img className ={faq.illustration__women} src={womenOnline} alt="illustration of a woman using the computer"/>
-        <img className ={faq.illustration__pattern} src={mobilePattern} alt="pattern"/>
-      </div>
-      <h1 className={faq.faq__title}>FAQ</h1>
-      <ul>
-        <li>
-          <h2 className={faq.faq__question}>How many team members can I invite?</h2>
-          <p className={`${faq.faq__answer} ${faq.faq__answer_hidden}`}>
-            You can invite up to 2 additional users on the Free plan. There is no limit on
-            team members for the Premium plan.
-          </p>
-        </li>
-        <li>
-          <h2 className={faq.faq__question}>What is the maximum file upload size?</h2>
-          <p className={`${faq.faq__answer} ${faq.faq__answer_hidden}`}>No more than 2GB. All files in your account must fit your allotted storage space.</p>
-        </li>
-        <li>
-          <h2 className={faq.faq__question}>How do I reset my password?</h2>
-          <p className={`${faq.faq__answer} ${faq.faq__answer_hidden}`}>
-            Click “Forgot password” from the login page or “Change password” from your profile page.
-            A reset link will be emailed to you.
-          </p>
-        </li>
-        <li>
-          <h2 className={faq.faq__question}>Can I cancel my subscription?</h2>
-          <p className={`${faq.faq__answer} ${faq.faq__answer_hidden}`}>Yes! Send us a message and we’ll process your request no questions asked.</p>
-        </li>
-        <li>
-          <h2 className={faq.faq__question}>Do you provide additional support?</h2>
-          <p className={`${faq.faq__answer} ${faq.faq__answer_hidden}`}>Chat and email support is available 24/7. Phone lines are open during normal business hours.</p>
-        </li>
+  // interface faqDataArrayTypes{
+  //   [index:number]: {
+  //     question: string,
+  //     answer: string,
+  //     showing: boolean,
+  //   }
+  // }
+
+  const faqDataArray = [
+    {
+      question: "How many team members can I invite?",
+      answer:
+        "You can invite up to 2 additional users on the Free plan. There is no limit on team members for the Premium plan.",
+    },
+    {
+      question: "What is the maximum file upload size?",
+      answer:
+        "No more than 2GB. All files in your account must fit your allotted storage space.",
+    },
+    {
+      question: "How do I reset my password?",
+      answer:
+        "Click “Forgot password” from the login page or “Change password” from your profile page. A reset link will be emailed to you.",
+    },
+    {
+      question: "Can I cancel my subscription?",
+      answer:
+        "Yes! Send us a message and we’ll process your request no questions asked.",
+    },
+    {
+      question: "Do you provide additional support?",
+      answer:
+        "Chat and email support is available 24/7. Phone lines are open during normal business hours.",
+    },
+  ];
+  interface data {
+    showing: boolean;
+    question: string;
+    answer: string;
+  }
+  const [hiddeContent, setHiddeContent] = useState<data[]>(() => {
+    return faqDataArray.map((faqData, idx: number) => {
+      const defaultOpenQuestion = idx === 1;
+      if (defaultOpenQuestion) return { ...faqData, showing: false };
+      return { ...faqData, showing: true };
+    });
+  });
+
+  function toggleClass(index: number) {
+    const hideShowFaq = hiddeContent.map((data, idx: number) => {
+      const onChangingObject = idx === index;
+      if (onChangingObject) data.showing = !data.showing;
+      return data;
+    });
+    setHiddeContent(hideShowFaq);
+  }
+
+  function renderFaq(faqList: data[]) {
+    return (
+      <ul className={faq.faq__list}>
+        {faqList.map((faqData, index) => {
+          return (
+            <>
+              <li>
+                <div className={`${faq.faq_questionArrow}`}>
+                  <h2
+                    className={`${faq.faq__question} ${
+                      faqData.showing ? "" : faq.faq__question_selected
+                    }`}
+                    onClick={() => toggleClass(index)}
+                  >
+                    {faqData.question}{" "}
+                  </h2>
+                  <p>
+                    <i
+                      className={`${faq.faq__arrow} ${
+                        faqData.showing
+                          ? faq.faq__arrow_down
+                          : faq.faq__arrow_up
+                      }`}
+                    ></i>
+                  </p>
+                </div>
+                <p
+                  className={`${faq.faq__answer} ${
+                    faqData.showing
+                      ? faq.faq__answer_hidden
+                      : faq.faq__answer_showing
+                  }`}
+                >
+                  {faqData.answer}
+                </p>
+              </li>
+              <hr className={faq.faq__divider}></hr>
+            </>
+          );
+        })}
       </ul>
-      
+    );
+  }
+  return (
+    <div className={faq.background}>
+      <div className={faq.faq}>
+        <div className={`${faq.faq__illustration}  ${faq.illustration}`}>
+          <img
+            className={faq.illustration__women}
+            src={womenOnline}
+            alt="illustration of a woman using the computer"
+          />
+          <img
+            className={faq.illustration__pattern}
+            src={mobilePattern}
+            alt="pattern"
+          />
+        </div>
+        <h1 className={faq.faq__title}>FAQ</h1>
+        {renderFaq(hiddeContent)}
+      </div>
+
       {/* <div style={{
         fontSize: "11px", 
         textAlign: "center",

@@ -1,13 +1,61 @@
-.faq {
-    background-color: white;
-    
-    &__title{
+/*
+    background{
+        width: 100%
+        height: 100%
+        background-image: linear-gradient(to right top, red, blue)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+// colors
+$text-blue: hsl(238, 29%, 16%);
+$text-red: hsl(14, 88%, 65%);
+$gradient-violet: hsl(273, 75%, 66%);
+$gradient-blue: hsl(240, 73%, 65%);
+$text-dark-grey-blue: hsl(237, 12%, 33%);
+$text-grey-blue: hsl(240, 6%, 50%);
+$divider: hsl(240, 5%, 91%);
 
+// styles
+.background{
+    width: 100vw;
+    height: 100%;
+    background-image: linear-gradient( $gradient-violet, $gradient-blue );
+    display: flex;   
+    justify-content: center;
+    align-items: center;
+}
+.faq {
+    font-family: "Kumbh Sans";
+    background-color: white;
+    width: 85%;
+    border-radius: 2.5rem;
+    box-shadow: 0 0 .5rem rgba(26, 25, 25, 0.205);
+    margin: 16rem 0 3rem ;
+    font-size: 1.2rem;
+    
+    &__list{
+        list-style-type: none;
+        padding: 0 2rem 4rem 2rem;
+    }
+    
+    &__divider{
+        color: $divider;
+    }
+    &__title{
+        text-align: center;
     }
     &__question{
-
+        cursor: pointer;
+        color: $text-grey-blue;
+        &_selected{
+            color: $text-dark-grey-blue;
+        }
+        &:hover{
+            color: $text-red;
+        }
     }
+    
     &__answer{
+        color: $text-grey-blue;
 
     }
     &__answer_hidden{
@@ -16,6 +64,26 @@
     &__answer_showing{
         display: inline-block;
     }
+
+    &__arrow{
+        border: solid $text-red;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transition: transform .02s;
+
+        &_down{
+            transform: rotate(45deg);
+        }
+        &_up{
+            transform: rotate(-135deg);
+        }
+    }
+    &_questionArrow{
+        display: flex;
+        justify-content: space-between;
+    }
+
 }
 
 .illustration{
