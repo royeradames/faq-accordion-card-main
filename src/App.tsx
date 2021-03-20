@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
 import faq from "./faq.module.scss";
-import womenOnline from "./images/illustration-woman-online-mobile.svg";
+import mobileWomenOnline from "./images/illustration-woman-online-mobile.svg";
 import mobilePattern from "./images/bg-pattern-mobile.svg";
+import desktopWomenOnline from "./images/illustration-woman-online-desktop.svg";
+import desktopPattern from "./images/bg-pattern-desktop.svg";
 
 function App() {
   // interface faqDataArrayTypes{
@@ -107,13 +109,15 @@ function App() {
   }
   return (
     <div className={faq.background}>
-      <div className={faq.faq}>
+      <section className={faq.faq}>
         <div className={`${faq.faq__illustration}  ${faq.illustration}`}>
-          <img
-            className={faq.illustration__women}
-            src={womenOnline}
-            alt="illustration of a woman using the computer"
-          />
+          <picture className={faq.illustration__women}>
+            <source media="(min-width: 800px)" srcSet={desktopWomenOnline} />
+            <img
+              src={mobileWomenOnline}
+              alt="illustration of a woman using the computer"
+            />
+          </picture>
           <img
             className={faq.illustration__pattern}
             src={mobilePattern}
@@ -122,7 +126,7 @@ function App() {
         </div>
         <h1 className={faq.faq__title}>FAQ</h1>
         {renderFaq(hiddeContent)}
-      </div>
+      </section>
 
       {/* <div style={{
         fontSize: "11px", 
