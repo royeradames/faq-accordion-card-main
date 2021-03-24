@@ -5,7 +5,7 @@ import mobileWomenOnline from "./images/illustration-woman-online-mobile.svg";
 import mobilePattern from "./images/bg-pattern-mobile.svg";
 import desktopWomenOnline from "./images/illustration-woman-online-desktop.svg";
 import desktopPattern from "./images/bg-pattern-desktop.svg";
-
+import box from "./images/illustration-box-desktop.svg";
 function App() {
   // interface faqDataArrayTypes{
   //   [index:number]: {
@@ -111,21 +111,26 @@ function App() {
     <div className={faq.background}>
       <section className={faq.faq}>
         <div className={`${faq.faq__illustration}  ${faq.illustration}`}>
-          <picture className={faq.illustration__women}>
-            <source media="(min-width: 800px)" srcSet={desktopWomenOnline} />
-            <img
-              src={mobileWomenOnline}
-              alt="illustration of a woman using the computer"
-            />
-          </picture>
-          <img
-            className={faq.illustration__pattern}
-            src={mobilePattern}
-            alt="pattern"
-          />
+          <img src={box} alt="box" className={faq.illustration__box} />
+          <section className={faq.illustration_container}>
+            <picture className={faq.illustration__women}>
+              <source media="(min-width: 800px)" srcSet={desktopWomenOnline} />
+              <img
+                src={mobileWomenOnline}
+                alt="illustration of a woman using the computer"
+              />
+            </picture>
+
+            <picture className={faq.illustration__pattern}>
+              <source media="(min-width: 800px)" srcSet={desktopPattern} />
+              <img src={mobilePattern} alt="blue carpet" />
+            </picture>
+          </section>
         </div>
-        <h1 className={faq.faq__title}>FAQ</h1>
-        {renderFaq(hiddeContent)}
+        <div className={faq.faq_container}>
+          <h1 className={faq.faq__title}>FAQ</h1>
+          {renderFaq(hiddeContent)}
+        </div>
       </section>
 
       {/* <div style={{
